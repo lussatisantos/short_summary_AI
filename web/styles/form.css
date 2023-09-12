@@ -31,4 +31,9 @@
   background-color: #8257e5;
 
   cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+#form > button:hover {
+  background-color: #633bbc;
 }
