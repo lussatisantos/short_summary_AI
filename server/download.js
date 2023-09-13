@@ -1,5 +1,6 @@
 import ytdl from "ytdl-core"
 import fs from 'fs'
+import { error } from "console"
 
 export const download = (videoId) => {
   const videoURL = "https://www.youtube.com/shorts/" + videoId
@@ -11,6 +12,15 @@ export const download = (videoId) => {
     (info) => {
     const seconds = info.formats[0].approxDurationMs / 1000
     
-    if(seconds)
+    if(seconds > 60) {
+      throw new Error("A duracao desse video e maior do que 60 segundos.")
+    }
+   })
+   .on("end", () => {
+    console.log("Download do video finalizado")
   })
+  .on("error", (error) => {
+    console.log("Nao foi possivel fazer o download do video. Detalhes do erro:", error)  
+  })
+  .pipe(fs.createWriteStream("./tmp/audio.mp4"))
 }
