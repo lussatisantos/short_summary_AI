@@ -1,6 +1,7 @@
 import cors from "cors"
 import express from "express"
 
+import { convert } from "./convert.js"
 import { download } from "./download.js"
 import { transcribe } from "./transcribe.js"
 import { summarize } from "./summarize.js"
@@ -11,6 +12,8 @@ app.use(cors())
 
 app.get("/summary/:id", async (request, response) => {
   await download(request.params.id)
+  const audioConverted = await convert()
+  console.log(audioConverted)
   const result = await transcribe()
 
   return response.json({ result })
