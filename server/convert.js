@@ -18,10 +18,10 @@ export const convert = () =>
     .format("wav")
     .on("end", () => {
       const file = fs.readFileSync(outputPath)
-      const fildeDecode = wav.decode(file)
+      const fileDecode = wav.decode(file)
 
       const audiodata = fileDecode.channelData[0]
-      const floatArray = new Float32Array(audioData)
+      const floatArray = new Float32Array(audiodata)
 
       console.log("Video convertido com sucesso!")
 
